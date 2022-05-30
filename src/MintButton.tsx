@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import Button from '@material-ui/core/Button';
 import {CircularProgress} from '@material-ui/core';
 import {GatewayStatus, useGateway} from '@civic/solana-gateway-react';
-import {CandyMachine} from './candy-machine';
+import {CandyMachineAccount} from './candy-machine';
 
 
 export const CTAButton = styled(Button)`
@@ -22,8 +22,8 @@ export const MintButton = ({
                                isActive,
                                isSoldOut
                            }: {
-    onMint: (quantityString: number) => Promise<void>;
-    candyMachine: CandyMachine | undefined;
+    onMint: () => Promise<void>;
+    candyMachine?: CandyMachineAccount;
     isMinting: boolean;
     isEnded: boolean;
     isActive: boolean;
@@ -40,7 +40,7 @@ export const MintButton = ({
             setIsVerifying(true);
         } else if (gatewayStatus === GatewayStatus.ACTIVE && clicked) {
             console.log('Verified human, now minting...');
-            onMint(1);
+            onMint();
             setClicked(false);
         }
     }, [gatewayStatus, clicked, setClicked, onMint]);
@@ -63,7 +63,7 @@ export const MintButton = ({
                     await requestGatewayToken();
                 } else {
                     console.log('Minting...');
-                    await onMint(1);
+                    await onMint();
                 }
             }}
             variant="contained"
