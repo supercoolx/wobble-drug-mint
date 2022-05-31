@@ -333,8 +333,11 @@ const Home = (props: HomeProps) => {
                             console.error(e);
                             balance = 0;
                         }
-                        setWhitelistTokenBalance(balance);
+                        if (commitment !== "processed") {
+                            setWhitelistTokenBalance(balance);
+                        }
                         setIsActive(isPresale && !isEnded && balance > 0);
+
                     } else {
                         setWhitelistEnabled(false);
                     }
@@ -704,6 +707,7 @@ const Home = (props: HomeProps) => {
                                                 } // This is the ignite (captcha) network
                                                 /// Don't need this for mainnet
                                                 clusterUrl={rpcUrl}
+                                                cluster={cluster}
                                                 options={{autoShowModal: false}}
                                             >
                                                 <MintButton
