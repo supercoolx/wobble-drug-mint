@@ -1,3 +1,8 @@
+**31 May 2022**
+
+Updated UI to reflect latest Metaplex Collection updates
+Removed multi mint (not working right now with anti bot detection)
+
 **26 Apr 2022**
 
 Multi-mints feature :
