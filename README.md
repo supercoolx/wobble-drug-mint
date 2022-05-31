@@ -1,6 +1,8 @@
 # Introduction
 
-**Prod-ready Candy Machine Responsive UI** which can be easily customized in 5mn.
+**PROD-READY Candy Machine Responsive UI** which can be easily customized in 5mn.
+
+**UP-TO-DATE with latest Metaplex improvements**
 
 All Candy Machine V2 functionalities are implemented, auto detected and maintained up-to-date :
 
