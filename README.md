@@ -10,7 +10,7 @@ All Candy Machine V2 functionalities are implemented, auto detected and maintain
 - presale true/false
 - end date / end number (endSettings)
 - spl-token to mint
-- **BONUS : multi mints on a single click/transaction (doesn't support gatekeeper)**
+- latest MCC updates from Metaplex
 
 ![Candy Machine Preview Image](https://i.ibb.co/YPvH81j/multimints.png)
 
