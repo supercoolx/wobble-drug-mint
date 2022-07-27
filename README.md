@@ -63,7 +63,7 @@ set __PLACEHOLDER__ with the candy machine pubkey you get once you upload & crea
 REACT_APP_SOLANA_NETWORK=devnet
 ```
 
-This identifies the Solana network you want to connect to. Options are `devnet`, `testnet`, and `mainnet`.
+This identifies the Solana network you want to connect to. Options are `devnet`, `testnet`, and `mainnet-beta`.
 
 ```
 REACT_APP_SOLANA_RPC_HOST=https://api.devnet.solana.com

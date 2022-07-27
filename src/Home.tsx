@@ -124,8 +124,7 @@ const LinearProgress = styled.div`
     padding: 5px;
     position: relative;
     margin-top: 20px;
-    & div {
-        position: absolute;
+    & div:last-child {
         background: repeating-linear-gradient(
             -45deg,
             #ec202d,
@@ -134,7 +133,11 @@ const LinearProgress = styled.div`
             #582622 20px
         );
         border-radius: 5px;
-        height: 70%;
+        height: 100%;
+    }
+    & div:first-child {
+        position: absolute;
+        width: 100%;
     }
 `;
 
@@ -626,8 +629,8 @@ const Home = (props: HomeProps) => {
                             {wallet && isActive &&
                                 // {100 - (itemsRemaining * 100 / itemsAvailable)}
                                 <LinearProgress>
+                                    <div>TOTAL MINTED : {itemsRedeemed} / {itemsAvailable}</div>
                                     <div style={{ width: 100 - (itemsRemaining * 100 / itemsAvailable) + '%' }} />
-                                    TOTAL MINTED : {itemsRedeemed} / {itemsAvailable}
                                 </LinearProgress>
                             }
                             <div style={{ display: 'flex', justifyContent: 'right' }}>
