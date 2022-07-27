@@ -1,36 +1,36 @@
 import styled from 'styled-components';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
-import {CircularProgress} from '@material-ui/core';
-import {GatewayStatus, useGateway} from '@civic/solana-gateway-react';
-import {CandyMachineAccount} from './candy-machine';
+import { CircularProgress } from '@material-ui/core';
+import { GatewayStatus, useGateway } from '@civic/solana-gateway-react';
+import { CandyMachine } from './candy-machine';
 
 
 export const CTAButton = styled(Button)`
-  display: block !important;
-  margin: 0 auto !important;
-  background-color: var(--title-text-color) !important;
-  min-width: 120px !important;
-  font-size: 1em !important;
-  font-family: 'monument' !important;
+    display: block !important;
+    margin: 0 auto !important;
+    background-color: var(--title-text-color) !important;
+    min-width: 120px !important;
+    font-size: 1em !important;
+    font-family: 'monument' !important;
 `;
 
 export const MintButton = ({
-                               onMint,
-                               candyMachine,
-                               isMinting,
-                               isEnded,
-                               isActive,
-                               isSoldOut
-                           }: {
-    onMint: () => Promise<void>;
-    candyMachine?: CandyMachineAccount;
+    onMint,
+    candyMachine,
+    isMinting,
+    isEnded,
+    isActive,
+    isSoldOut
+}: {
+    onMint: (quantityString: number) => Promise<void>;
+    candyMachine: CandyMachine | undefined;
     isMinting: boolean;
     isEnded: boolean;
     isActive: boolean;
     isSoldOut: boolean;
 }) => {
-    const {requestGatewayToken, gatewayStatus} = useGateway();
+    const { requestGatewayToken, gatewayStatus } = useGateway();
     const [clicked, setClicked] = useState(false);
     const [isVerifying, setIsVerifying] = useState(false);
 
@@ -41,7 +41,7 @@ export const MintButton = ({
             setIsVerifying(true);
         } else if (gatewayStatus === GatewayStatus.ACTIVE && clicked) {
             console.log('Verified human, now minting...');
-            onMint();
+            onMint(1);
             setClicked(false);
         }
     }, [gatewayStatus, clicked, setClicked, onMint]);
@@ -64,7 +64,7 @@ export const MintButton = ({
                     await requestGatewayToken();
                 } else {
                     console.log('Minting...');
-                    await onMint();
+                    await onMint(1);
                 }
             }}
             variant="contained"
@@ -76,7 +76,7 @@ export const MintButton = ({
             ) : isActive ? (
                 isVerifying ? 'VERIFYING...' :
                     isMinting || clicked ? (
-                        <CircularProgress/>
+                        <CircularProgress />
                     ) : (
                         "MINT"
                     )
