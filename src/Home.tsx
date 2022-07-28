@@ -556,11 +556,7 @@ const Home = (props: HomeProps) => {
     const startMint = async (quantityString: number) => {
         try {
             setIsMinting(true);
-            if (quantityString === 1) {
-                await mintOne();
-            } else {
-                await mintMany(quantityString);
-            }
+            await mintMany(quantityString);
         } catch (error: any) {
             let message = error.msg || 'Minting failed! Please try again!';
             if (!error.msg) {
