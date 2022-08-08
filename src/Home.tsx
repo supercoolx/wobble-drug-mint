@@ -26,9 +26,6 @@ const decimals = process.env.REACT_APP_SPL_TOKEN_TO_MINT_DECIMALS ? +process.env
 const splTokenName = process.env.REACT_APP_SPL_TOKEN_TO_MINT_NAME ? process.env.REACT_APP_SPL_TOKEN_TO_MINT_NAME.toString() : "TOKEN";
 
 const WalletContainer = styled.div`
-    position: fixed;
-    top: 20px;
-    right: 20px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -59,6 +56,7 @@ const WalletAmount = styled.div`
     vertical-align: middle;
     justify-content: flex-start;
     gap: 10px;
+    font-family: system-ui;
 `;
 
 const Wallet = styled.ul`
@@ -69,34 +67,40 @@ const Wallet = styled.ul`
 
 const ConnectButton = styled(WalletMultiButton)`
     border-radius: 18px !important;
-    padding: 6px 16px;
+    padding: 5px 16px;
     background-color: #4E44CE;
     margin: 0 auto;
+    height: unset;
+    line-height: unset;
 `;
 
 const Header = styled.div`
-    display: relative;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    padding: 0 20px;
+    justify-content: space-between;
 `;
 
-const Logo = styled.img`
-    width: 70px;
-    top: 20px;
-    left: 20px;
-    position: absolute;
-    -webkit-filter: drop-shadow(2px 2px 2px #000000);
-    filter: drop-shadow(2px 2px 2px #000000);
+const Logo = styled.div`
+    display: inline-grid;
+    & img {
+        width: 70px;
+        -webkit-filter: drop-shadow(2px 2px 2px #000000);
+        filter: drop-shadow(2px 2px 2px #000000);
+    }
 `;
 
 const Title = styled.div`
+    margin-top: 20px;
     & img {
-        width: 500px;
+        max-width: 300px;
         -webkit-filter: drop-shadow(2px 2px 2px #000000);
         filter: drop-shadow(2px 2px 2px #000000);
     }
 `;
 
 const NFT = styled(Paper)`
-    min-width: 500px;
     margin: 0 auto;
     margin-top: 30px;
     padding: 5px 20px 20px 20px;
@@ -188,8 +192,6 @@ const MainContainer = styled.div`
     flex-direction: column;
     margin-top: 20px;
     margin-bottom: 20px;
-    margin-right: 4%;
-    margin-left: 4%;
     text-align: center;
     justify-content: center;
 `;
@@ -207,6 +209,7 @@ const DesContainer = styled.div`
     flex-direction: column;
     flex: 1 1 auto;
     gap: 20px;
+    padding: 0 20px;
 `;
 
 const Price = styled(Chip)`
@@ -604,20 +607,22 @@ const Home = (props: HomeProps) => {
         <main>
             <MainContainer>
                 <Header>
-                    <Logo src="img/wobble.png" alt="" />
-                    <Title><img src="img/title.png" alt="" /></Title>
+                    <Logo>
+                        <img src="img/wobble.png" alt="" />
+                    </Logo>
+                    <WalletContainer>
+                        <Wallet>
+                            {wallet ?
+                                <WalletAmount>{(balance || 0).toLocaleString()} SOL<ConnectButton /></WalletAmount> :
+                                <ConnectButton>Connect Wallet</ConnectButton>}
+                        </Wallet>
+                    </WalletContainer>
                 </Header>
-                <WalletContainer>
-                    <Wallet>
-                        {wallet ?
-                            <WalletAmount>{(balance || 0).toLocaleString()} SOL<ConnectButton /></WalletAmount> :
-                            <ConnectButton>Connect Wallet</ConnectButton>}
-                    </Wallet>
-                </WalletContainer>
                 <br />
                 <MintContainer>
                     <DesContainer>
                         <NFT elevation={3}>
+                            <Title><img src="img/title.png" alt="" /></Title>
                             {wallet && isActive &&
                                 // {100 - (itemsRemaining * 100 / itemsAvailable)}
                                 <LinearProgress>

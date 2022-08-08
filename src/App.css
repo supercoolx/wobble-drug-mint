@@ -13,7 +13,7 @@
 }
 
 body{
-  background-image: radial-gradient(red, black);
+  background-image: radial-gradient(rgb(34, 34, 34), black);
   background-size: cover;
   font-family: 'monument';
   font-size: 1.1em;
