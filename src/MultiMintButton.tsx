@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import { CircularProgress } from '@material-ui/core';
 import { GatewayStatus, useGateway } from '@civic/solana-gateway-react';
-import { CandyMachine } from './candy-machine';
+import { CandyMachineAccount } from './candy-machine';
 
 
 export const CTAButton = styled(Button)`
@@ -83,7 +83,7 @@ export const MultiMintButton = ({
     price
 }: {
     onMint: (quantityString: number) => Promise<void>;
-    candyMachine: CandyMachine | undefined;
+    candyMachine: CandyMachineAccount | undefined;
     isMinting: boolean;
     isEnded: boolean;
     isActive: boolean;

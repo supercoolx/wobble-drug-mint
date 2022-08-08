@@ -13,7 +13,7 @@ import { AlertState, getAtaForMint, toDate } from './utils';
 import { MintButton } from './MintButton';
 import { MultiMintButton } from './MultiMintButton';
 import {
-    CandyMachine,
+    CandyMachineAccount,
     awaitTransactionSignatureConfirmation,
     getCandyMachineState,
     mintOneToken,
@@ -258,7 +258,7 @@ const Home = (props: HomeProps) => {
     });
 
     const wallet = useAnchorWallet();
-    const [candyMachine, setCandyMachine] = useState<CandyMachine>();
+    const [candyMachine, setCandyMachine] = useState<CandyMachineAccount>();
 
     const rpcUrl = props.rpcHost;
     const solFeesEstimation = 0.012; // approx of account creation fees
@@ -428,7 +428,7 @@ const Home = (props: HomeProps) => {
         if (wallet && candyMachine?.program && wallet.publicKey) {
             const quantity = Number(quantityString);
             const futureBalance = (balance || 0) - ((whitelistEnabled && (whitelistTokenBalance > 0) ? whitelistPrice : price) * quantity);
-            const signedTransactions: any = await mintMultipleToken(
+            const signedTransactions = await mintMultipleToken(
                 candyMachine,
                 wallet.publicKey,
                 quantity
@@ -447,7 +447,6 @@ const Home = (props: HomeProps) => {
                         tx,
                         props.txTimeout,
                         props.connection,
-                        "singleGossip",
                         true
                     )
                 );
@@ -519,17 +518,14 @@ const Home = (props: HomeProps) => {
     async function mintOne() {
         if (wallet && candyMachine?.program && wallet.publicKey) {
             const mint = anchor.web3.Keypair.generate();
-            const mintTxId = (
-                await mintOneToken(candyMachine, wallet.publicKey, mint)
-            )[0];
+            const mintResult = await mintOneToken(candyMachine, wallet.publicKey);
 
             let status: any = {err: true};
-            if (mintTxId) {
+            if (mintResult) {
                 status = await awaitTransactionSignatureConfirmation(
-                    mintTxId,
+                    mintResult.mintTxId,
                     props.txTimeout,
                     props.connection,
-                    'singleGossip',
                     true,
                 );
             }
