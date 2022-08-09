@@ -56,7 +56,6 @@ const WalletAmount = styled.div`
     vertical-align: middle;
     justify-content: flex-start;
     gap: 10px;
-    font-family: system-ui;
 `;
 
 const Wallet = styled.ul`
@@ -72,6 +71,7 @@ const ConnectButton = styled(WalletMultiButton)`
     margin: 0 auto;
     height: unset;
     line-height: unset;
+    font-family: monument;
 `;
 
 const Header = styled.div`
