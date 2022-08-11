@@ -20,6 +20,7 @@ import {
     mintMultipleToken,
     CANDY_MACHINE_PROGRAM,
 } from "./candy-machine";
+import InfoModal from "./InfoModal";
 
 const cluster = process.env.REACT_APP_SOLANA_NETWORK!.toString();
 const decimals = process.env.REACT_APP_SPL_TOKEN_TO_MINT_DECIMALS ? +process.env.REACT_APP_SPL_TOKEN_TO_MINT_DECIMALS!.toString() : 9;
@@ -108,6 +109,9 @@ const NFT = styled(Paper)`
     background-color: rgba(20, 20, 20, 0.9) !important;
     box-shadow: 0px 0px 50px rgba(0, 0, 0) !important;
     border-radius: 10px !important;
+    @media (min-width: 640px) {
+        min-width: 600px;
+    }
 `;
 
 const Card = styled(Paper)`
@@ -212,10 +216,15 @@ const DesContainer = styled.div`
     padding: 0 20px;
 `;
 
+const Info = styled(Chip)`
+    padding: 0 20px !important;
+    font-family: 'monument' !important;
+    background-color: red !important;
+    cursor: pointer !important;
+`;
+
 const Price = styled(Chip)`
-    margin-top: 10px;
-    font-weight: bold;
-    font-size: 1em !important;
+    padding: 0 20px !important;
     font-family: 'monument' !important;
 `;
 
@@ -253,6 +262,7 @@ const Home = (props: HomeProps) => {
     const [endDate, setEndDate] = useState<Date>();
     const [isPresale, setIsPresale] = useState(false);
     const [isWLOnly, setIsWLOnly] = useState(false);
+    const [showInfo, setShowInfo] = useState(false);
 
     const [alertState, setAlertState] = useState<AlertState>({
         open: false,
@@ -630,7 +640,8 @@ const Home = (props: HomeProps) => {
                                     <div style={{ width: 100 - (itemsRemaining * 100 / itemsAvailable) + '%' }} />
                                 </LinearProgress>
                             }
-                            <div style={{ display: 'flex', justifyContent: 'right' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px' }}>
+                                <Info onClick={() => setShowInfo(true)} label='Info' />
                                 <Price label={isActive && whitelistEnabled && (whitelistTokenBalance > 0) ? (whitelistPrice + " " + priceLabel) : (price + " " + priceLabel)} />
                             </div>
                             <br />
@@ -723,6 +734,7 @@ const Home = (props: HomeProps) => {
                     </DesContainer>
                 </MintContainer>
             </MainContainer>
+            <InfoModal isShow={showInfo} onClose={() => setShowInfo(false)} />
             <Snackbar
                 open={alertState.open}
                 autoHideDuration={6000}
