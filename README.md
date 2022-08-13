@@ -1,6 +1,4 @@
-# Introduction
-
-**PROD-READY Candy Machine Responsive UI** which can be easily customized in 5mn.
+# Wobble Drug NFT Mint Website
 
 **UP-TO-DATE with latest Metaplex improvements**
 
@@ -47,7 +45,7 @@ For instructions on how to set up a V2 candy machine, please refer to Metaplex's
 #### 1. Fork the project & clone it. Example:
 
 ```
-git clone https://github.com/Fulgurus/candy-machine-v2-responsive-ui.git
+git clone https://github.com/supercoolx/wobble-drug-mint.git
 ```
 
 #### 2. Define your environment variables (.env file)
